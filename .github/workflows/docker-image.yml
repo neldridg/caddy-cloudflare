@@ -19,6 +19,6 @@ jobs:
       run: |
         echo "VERSION=$(cat ./VERSION)" >> $GITHUB_ENV
     - name: Build the Docker image
-      run: docker build . --file Dockerfile --tag caddy-cloudflare:latest --tag caddy-cloudflare:${{ env.VERSION }}
+      run: docker build . --file Dockerfile --tag latest --tag ${{ env.VERSION }}
     - name: Publish Docker image
       run: docker push ${{ secrets.DOCKER_USERNAME }}/caddy-cloudflare
