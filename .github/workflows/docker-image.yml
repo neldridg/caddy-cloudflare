@@ -3,8 +3,6 @@ name: Docker Image CI
 on:
   push:
     branches: [ "main" ]
-  pull_request:
-    branches: [ "main" ]
 
 jobs:
   build:
@@ -19,6 +17,6 @@ jobs:
       run: |
         echo "VERSION=$(cat ./VERSION)" >> $GITHUB_ENV
     - name: Build the Docker image
-      run: docker build . --file Dockerfile --tag latest --tag ${{ env.VERSION }}
+      run: docker build -t ${{ secrets.DOCKER_USERNAME }}/caddy-cloudflare:latest -t ${{ secrets.DOCKER_USERNAME }}/caddy-cloudflare:${{ env.VERSION }} .
     - name: Publish Docker image
       run: docker push ${{ secrets.DOCKER_USERNAME }}/caddy-cloudflare
